@@ -228,30 +228,36 @@ body {
   background-color: #e2e8f0;
 }
 
-/* Quick Reference Chips */
 .guide-container h3 {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text-main);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.25rem; /* Adds breathing room below the heading */
 }
 
+/* Quick Reference Grid (Equal Width & Height) */
 .quick-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 equal columns */
+  gap: 0.5rem;
 }
 
 .chip {
   background-color: #ffffff;
   border: 1px solid var(--border-color);
   color: var(--text-main);
-  padding: 0.4rem 0.65rem;
-  border-radius: 20px;
-  font-size: 0.78rem;
+  padding: 0.6rem 1rem;       /* 1rem left/right gives breathing room from the pill curve */
+  border-radius: 24px;
+  font-size: 0.76rem;
+  font-weight: 500;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Aligns content to the left */
+  text-align: left;
+  width: 100%;
   transition: all 0.15s ease;
 }
 
@@ -259,4 +265,11 @@ body {
   background-color: var(--badge-bg);
   border-color: #c7d2fe;
   color: var(--badge-text);
+}
+
+/* Stacks into a single uniform column on narrow phones or sidebars */
+@media (max-width: 500px) {
+  .quick-chips {
+    grid-template-columns: 1fr;
+  }
 }
