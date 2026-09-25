@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>INA &harr; U.S. Code Citation Converter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <h1>Immigration Citation Converter</h1>
+      <p class="subtitle">Convert between INA and Title 8 U.S. Code citations.</p>
+    </header>
+
+    <!-- Search Input Box -->
+    <section class="search-section">
+      <div class="input-wrapper">
+        <label for="citation-input" class="sr-only">Enter Citation</label>
+        <input 
+          type="text" 
+          id="citation-input" 
+          placeholder="Paste cite (e.g. INA 212(a)(6)(A) or 8 USC 1182)..." 
+          autocomplete="off" 
+          autofocus
+        >
+        <button id="clear-btn" class="clear-btn" title="Clear input" style="display: none;">&times;</button>
+      </div>
+    </section>
+
+    <!-- Results Panel (populated via app.js) -->
+    <section id="result-container" class="result-container" style="display: none;">
+      <div class="result-card">
+        <div class="result-meta">
+          <span id="detected-badge" class="badge">Detected INA</span>
+          <span class="arrow-indicator">&rarr;</span>
+          <span id="target-badge" class="badge">8 U.S.C.</span>
+        </div>
+
+        <!-- The Converted Citation -->
+        <div class="citation-output">
+          <h2 id="converted-citation">—</h2>
+          <button id="copy-btn" class="btn-copy" title="Copy to clipboard">
+            <span id="copy-text">Copy Citation</span>
+          </button>
+        </div>
+
+        <!-- Statute Subject Title -->
+        <p id="statute-title" class="statute-title"></p>
+
+        <!-- Direct Clickable Links -->
+        <!-- Direct Clickable Links -->
+        <div class="links-wrapper">
+          <a id="olrc-link" href="#" target="_blank" rel="noopener noreferrer" class="link-btn olrc-btn">
+            View Official Statute (House OLRC) &nearr;
+          </a>
+          <a id="usc-link" href="#" target="_blank" rel="noopener noreferrer" class="link-btn usc-btn">
+            View at Cornell LII &nearr;
+          </a>
+          <a id="ina-link" href="#" target="_blank" rel="noopener noreferrer" class="link-btn ina-btn">
+            Search Official .gov Agency Guidance &nearr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Empty / Initial Guide State -->
+    <section id="guide-container" class="guide-container">
+      <h3>Quick Reference (Most Common Citations)</h3>
+      <div class="quick-chips">
+        <button class="chip" data-cite="INA 101">INA 101 &harr; 8 USC 1101 (Definitions)</button>
+        <button class="chip" data-cite="INA 208">INA 208 &harr; 8 USC 1158 (Asylum)</button>
+        <button class="chip" data-cite="INA 212">INA 212 &harr; 8 USC 1182 (Inadmissibility)</button>
+        <button class="chip" data-cite="INA 236">INA 236 &harr; 8 USC 1226 (Bond / Detention)</button>
+        <button class="chip" data-cite="INA 237">INA 237 &harr; 8 USC 1227 (Deportability)</button>
+        <button class="chip" data-cite="INA 240A">INA 240A &harr; 8 USC 1229b (Cancellation)</button>
+        <button class="chip" data-cite="INA 242">INA 242 &harr; 8 USC 1252 (Judicial Review)</button>
+        <button class="chip" data-cite="INA 245">INA 245 &harr; 8 USC 1255 (Adjustment)</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="concordance.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

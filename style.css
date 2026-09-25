@@ -1,0 +1,262 @@
+/* Base & Typography */
+:root {
+  --primary: #1e3a8a;       /* Deep navy blue */
+  --primary-hover: #172554;
+  --accent: #2563eb;        /* Bright blue for links */
+  --bg-color: #f8fafc;      /* Soft off-white background */
+  --card-bg: #ffffff;
+  --text-main: #0f172a;     /* Dark charcoal */
+  --text-muted: #64748b;    /* Slate gray */
+  --border-color: #e2e8f0;
+  --badge-bg: #e0e7ff;
+  --badge-text: #3730a3;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Container scales smoothly for sidebars, phones, or desktops */
+.app-container {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Search Bar */
+.search-section {
+  margin-bottom: 1.25rem;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#citation-input {
+  width: 100%;
+  padding: 0.85rem 2.5rem 0.85rem 1rem;
+  font-size: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: #ffffff;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#citation-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.clear-btn {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+}
+
+/* Result Card */
+.result-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.result-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.arrow-indicator {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.citation-output {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.citation-output h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary);
+  word-break: break-word;
+}
+
+.btn-copy {
+  flex-shrink: 0;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.btn-copy:hover {
+  background-color: var(--primary-hover);
+}
+
+.statute-title {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Statutory Links */
+.links-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.link-btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.6rem;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.olrc-btn {
+  background-color: #1e3a8a;
+  color: #ffffff;
+  border: 1px solid #1e3a8a;
+  font-weight: 600;
+}
+
+.olrc-btn:hover {
+  background-color: #172554;
+}
+
+.usc-btn {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.usc-btn:hover {
+  background-color: #dbeafe;
+}
+
+.ina-btn {
+  background-color: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.ina-btn:hover {
+  background-color: #e2e8f0;
+}
+
+/* Quick Reference Chips */
+.guide-container h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.4rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.chip:hover {
+  background-color: var(--badge-bg);
+  border-color: #c7d2fe;
+  color: var(--badge-text);
+}
