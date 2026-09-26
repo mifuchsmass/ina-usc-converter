@@ -471,7 +471,7 @@ body {
 /* ==========================================================================
    Mobile Responsiveness (Phones & Narrow Viewports)
    ========================================================================== */
-@media (max-width: 540px) {
+@media (max-width: 600px) {
   /* Chips stack cleanly into 1 column on phones */
   .quick-chips {
     grid-template-columns: 1fr;
@@ -479,13 +479,20 @@ body {
     grid-auto-flow: row;
   }
 
-  /* Modal Mobile Fix: Prevents clipping at top of phone screen */
+  /* Bulletproof Mobile Modal: Dead-center, never clips */
   .modal-dialog {
-    width: 94vw;
-    max-height: 86dvh;
-    /* Safely offsets below notch/status bar, centers horizontally */
-    margin: max(1.25rem, env(safe-area-inset-top, 1.25rem)) auto auto auto;
-    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    inset: auto;                         /* Overrides Safari's buggy default inset: 0 */
+    width: 90vw;
+    max-width: 90vw;
+    height: auto;
+    max-height: 82vh;
+    max-height: 82dvh;                   /* Accounts for phone URL/nav bars */
+    border-radius: 12px;
   }
 
   .modal-header {
