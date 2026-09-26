@@ -256,7 +256,7 @@ body {
   grid-template-rows: repeat(5, auto);
   grid-auto-flow: column;
   gap: 0.5rem;
-  counter-reset: chip-num;                /* Initializes counter */
+  counter-reset: chip-num;
 }
 
 .chip {
@@ -270,11 +270,11 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.6rem;                           /* Spacing between number badge and text */
+  gap: 0.6rem;
   justify-content: flex-start;
   text-align: left;
   width: 100%;
-  counter-increment: chip-num;           /* Increments 1, 2, 3... */
+  counter-increment: chip-num;
   transition: all 0.15s ease;
 }
 
@@ -291,7 +291,7 @@ body {
   color: var(--badge-text);
   background-color: var(--badge-bg);
   border-radius: 50%;
-  flex-shrink: 0;                        /* Keeps badge circular even if text wraps */
+  flex-shrink: 0;
   transition: all 0.15s ease;
 }
 
@@ -314,14 +314,13 @@ body {
   border: none;
   border-radius: 12px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  max-width: 680px;
-  width: 90vw;
-  max-height: 85vh;
-  max-height: 85dvh;                     /* Dynamic viewport for mobile browser chrome */
+  width: min(92vw, 620px);               /* 92% width on phones, 620px max on desktop */
+  height: 80vh;                          /* Fallback */
+  height: 80dvh;                         /* Exactly 80% of phone screen height */
   background: #ffffff;
   color: #1f2937;
   overflow: hidden;
-  margin: auto;
+  margin: auto;                          /* Native, bug-free centering on all devices */
 }
 
 .modal-dialog[open] {
@@ -338,14 +337,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem;
+  padding: 1rem 1.25rem;
   border-bottom: 1px solid #e5e7eb;
   background-color: #f9fafb;
-  flex-shrink: 0;                        /* Keeps header from compressing */
+  flex-shrink: 0;                        /* Pins header at top, never compresses */
 }
 
 .modal-header h2 {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #111827;
   margin: 0;
@@ -368,9 +367,11 @@ body {
 }
 
 .modal-body {
-  padding: 1.5rem;
-  overflow-y: auto;                      /* Enables clean scrolling */
-  flex: 1;                               /* Takes remaining height */
+  padding: 1.25rem;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;                         /* CRITICAL: Allows body to scroll in mobile Safari */
+  -webkit-overflow-scrolling: touch;     /* Smooth touch momentum scrolling on iPhone */
   font-size: 0.9375rem;
   line-height: 1.6;
 }
@@ -471,39 +472,11 @@ body {
 /* ==========================================================================
    Mobile Responsiveness (Phones & Narrow Viewports)
    ========================================================================== */
-@media (max-width: 600px) {
+@media (max-width: 540px) {
   /* Chips stack cleanly into 1 column on phones */
   .quick-chips {
     grid-template-columns: 1fr;
     grid-template-rows: none;
     grid-auto-flow: row;
-  }
-
-  /* Bulletproof Mobile Modal: Dead-center, never clips */
-  .modal-dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    inset: auto;                         /* Overrides Safari's buggy default inset: 0 */
-    width: 90vw;
-    max-width: 90vw;
-    height: auto;
-    max-height: 82vh;
-    max-height: 82dvh;                   /* Accounts for phone URL/nav bars */
-    border-radius: 12px;
-  }
-
-  .modal-header {
-    padding: 1rem 1.15rem;
-  }
-
-  .modal-header h2 {
-    font-size: 1.1rem;
-  }
-
-  .modal-body {
-    padding: 1.15rem;
   }
 }
