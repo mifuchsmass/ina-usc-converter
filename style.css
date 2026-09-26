@@ -237,10 +237,12 @@ body {
   margin-bottom: 1.25rem; /* Adds breathing room below the heading */
 }
 
-/* Quick Reference Grid (Equal Width & Height) */
+/* Quick Reference Grid: Flows DOWN the left column first, then right */
 .quick-chips {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 equal columns */
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, auto); /* 5 rows on desktop */
+  grid-auto-flow: column;               /* Fills down column 1 first, then column 2 */
   gap: 0.5rem;
 }
 
@@ -248,14 +250,14 @@ body {
   background-color: #ffffff;
   border: 1px solid var(--border-color);
   color: var(--text-main);
-  padding: 0.6rem 1rem;       /* 1rem left/right gives breathing room from the pill curve */
+  padding: 0.6rem 1rem;
   border-radius: 24px;
   font-size: 0.76rem;
   font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Aligns content to the left */
+  justify-content: flex-start;
   text-align: left;
   width: 100%;
   transition: all 0.15s ease;
@@ -267,9 +269,11 @@ body {
   color: var(--badge-text);
 }
 
-/* Stacks into a single uniform column on narrow phones or sidebars */
+/* Stacks sequentially into 1 column on narrow phones or sidebars */
 @media (max-width: 500px) {
   .quick-chips {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-flow: row;
   }
 }
