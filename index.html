@@ -10,8 +10,11 @@
   <div class="app-container">
     <!-- Header -->
     <header class="header">
-      <h1>Immigration Citation Converter</h1>
-      <p class="subtitle">Convert between INA and Title 8 U.S. Code citations.</p>
+      <h1>Immigration Section Converter</h1>
+      <p class="subtitle">
+        Convert between INA and Title 8 U.S. Code sections. 
+        &bull; <a href="#" id="open-help-btn" class="help-link">Help &amp; Sources</a>
+      </p>
     </header>
 
     <!-- Search Input Box -->
@@ -41,15 +44,14 @@
         <!-- The Converted Citation -->
         <div class="citation-output">
           <h2 id="converted-citation">—</h2>
-          <button id="copy-btn" class="btn-copy" title="Copy to clipboard">
-            <span id="copy-text">Copy Citation</span>
+          <button id="copy-btn" class="btn-copy" type="button" title="Copy to clipboard">
+            <span id="copy-text">Copy Section</span>
           </button>
         </div>
 
         <!-- Statute Subject Title -->
         <p id="statute-title" class="statute-title"></p>
 
-        <!-- Direct Clickable Links -->
         <!-- Direct Clickable Links -->
         <div class="links-wrapper">
           <a id="olrc-link" href="#" target="_blank" rel="noopener noreferrer" class="link-btn olrc-btn">
@@ -67,8 +69,8 @@
 
     <!-- Empty / Initial Guide State -->
     <section id="guide-container" class="guide-container">
-      <h3>Quick Reference (Most Common Citations)</h3>
-     <div class="quick-chips">
+      <h3>Quick Reference (Most Common Sections)</h3>
+      <div class="quick-chips">
         <button class="chip" data-cite="INA 101">INA 101 &harr; 8 USC 1101 (Definitions)</button>
         <button class="chip" data-cite="INA 208">INA 208 &harr; 8 USC 1158 (Asylum)</button>
         <button class="chip" data-cite="INA 212">INA 212 &harr; 8 USC 1182 (Inadmissibility)</button>
@@ -82,6 +84,43 @@
       </div>
     </section>
   </div>
+
+  <!-- Help & Methodology Modal (Hidden until clicked) -->
+  <dialog id="help-modal" class="modal-dialog">
+    <div class="modal-header">
+      <h2>Help, Methodology &amp; Sources</h2>
+        <button id="close-help-btn" class="modal-close-btn" type="button" onclick="document.getElementById('help-modal').close()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- 1. How to Use -->
+      <section class="modal-section">
+        <h3>How to Use</h3>
+        <p>Type any INA or 8 U.S.C. section into the search box. The tool auto-detects the source and transfers sections automatically (e.g. <code>240A(b)(1)</code> &rarr; <code>1229b(b)(1)</code>).</p>
+      </section>
+
+      <!-- 2. Audit Methodology -->
+      <section class="modal-section">
+        <h3>Audit Methodology &amp; Sources of Truth</h3>
+        <p>This tool was manually verified across all 164 codified statutory provisions in Titles I through V of the Immigration and Nationality Act using data at the following USCIS website:</p>
+        <p>
+          <a href="https://www.uscis.gov/laws-and-policy/legislation/immigration-and-nationality-act" target="_blank" rel="noopener noreferrer">USCIS INA Reference Library</a>
+        </p>
+      </section>
+
+      <!-- 3. CSV Download -->
+      <section class="modal-section">
+        <h3>Mapped  Data</h3>
+        <p>Download the full 164-statute mapped data table of sections for spreadsheet analysis or review.</p>
+        <button id="download-csv-btn" class="btn-download" type="button">Download Data (CSV)</button>
+      </section>
+
+      <!-- 4. Disclaimer -->
+      <section class="modal-section">
+        <p><small><em>Disclaimer: Informational reference tool only; does not constitute legal advice. Independently verify all section numbers against primary statutory sources prior to using.</em></small></p>
+      </section>
+    </div>
+  </dialog>
 
   <script src="concordance.js"></script>
   <script src="app.js"></script>
