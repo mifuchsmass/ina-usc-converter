@@ -311,13 +311,13 @@ if (helpModal) {
 }
 
 /* ==========================================================================
-   CSV Data Export Generator (Phases 1-3)
+   CSV Data Export Generator (Clean 4-Column Format)
    ========================================================================== */
 const downloadCsvBtn = document.getElementById("download-csv-btn");
 
 if (downloadCsvBtn) {
   downloadCsvBtn.addEventListener("click", () => {
-    // Correctly reference the master dataset array defined in concordance.js
+    // Reference master dataset
     const masterData = (typeof CONCORDANCE_DATA !== "undefined")
       ? CONCORDANCE_DATA
       : (window.CONCORDANCE_DATA || window.concordance || window.CONCORDANCE || null);
@@ -334,50 +334,45 @@ if (downloadCsvBtn) {
       return `"${cleanStr}"`;
     };
 
-    // CSV Header row
+    // Clean 4-Column Header Row
     const headers = [
       "INA Section",
-      "8 U.S.C. Title",
       "8 U.S.C. Section",
       "Statutory Subject Title",
-      "INA Title / Category",
-      "House OLRC Link",
-      "Cornell LII Link"
+      "House OLRC Link"
     ];
 
-    // Build rows flexibly to match concordance.js schema
+    // Build rows (with automatic sanitization for stray "8 " prefixes)
     const rows = masterData.map((item) => {
-      const inaSec = item.ina || item.inaSec || item.inaSection || "";
-      const uscSec = item.usc || item.uscSec || item.uscSection || "";
-      const title = item.title || item.name || item.description || "";
-      const group = item.group || item.category || item.actTitle || item.inaTitle || "";
+      const inaSec = (item.ina || item.inaSec || item.inaSection || "").trim();
+      
+      // Strips any accidental "8 " prefix (e.g. "8 1105a" -> "1105a")
+      const rawUsc = (item.usc || item.uscSec || item.uscSection || "").trim();
+      const uscSec = rawUsc.replace(/^(8\s*u\.?s\.?c\.?\s*|8\s*)/i, "").trim();
+      
+      const title = (item.title || item.name || item.description || "").trim();
 
       const olrcUrl = uscSec 
         ? `https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title8-section${uscSec}&num=0&edition=prelim` 
         : "";
-      const cornellUrl = uscSec 
-        ? `https://www.law.cornell.edu/uscode/text/8/${uscSec}` 
-        : "";
 
       return [
         escapeCsv(inaSec),
-        escapeCsv("8"),
         escapeCsv(uscSec),
         escapeCsv(title),
-        escapeCsv(group),
-        escapeCsv(olrcUrl),
-        escapeCsv(cornellUrl)
+        escapeCsv(olrcUrl)
       ].join(",");
     });
 
-    const csvContent = [headers.map(escapeCsv).join(","), ...rows].join("\r\n");
+    // \uFEFF ensures Excel opens UTF-8 dashes and special characters correctly
+    const csvContent = "\uFEFF" + [headers.map(escapeCsv).join(","), ...rows].join("\r\n");
 
     // Generate Blob and trigger download
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "ina_usc_concordance_master.csv");
+    link.setAttribute("download", "ina_usc_sections_master.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

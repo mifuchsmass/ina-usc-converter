@@ -249,29 +249,49 @@ body {
   margin-bottom: 1.25rem;
 }
 
-/* Quick Reference Grid: Flows DOWN the left column first, then right */
+/* Quick Reference Grid: Column Flow with Numbered Badges */
 .quick-chips {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(5, auto);
   grid-auto-flow: column;
   gap: 0.5rem;
+  counter-reset: chip-num;                /* Initializes counter */
 }
 
 .chip {
   background-color: #ffffff;
   border: 1px solid var(--border-color);
   color: var(--text-main);
-  padding: 0.6rem 1rem;
+  padding: 0.55rem 0.85rem;
   border-radius: 24px;
   font-size: 0.76rem;
   font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
+  gap: 0.6rem;                           /* Spacing between number badge and text */
   justify-content: flex-start;
   text-align: left;
   width: 100%;
+  counter-increment: chip-num;           /* Increments 1, 2, 3... */
+  transition: all 0.15s ease;
+}
+
+/* Numbered Badge (1 through 10) */
+.chip::before {
+  content: counter(chip-num);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--badge-text);
+  background-color: var(--badge-bg);
+  border-radius: 50%;
+  flex-shrink: 0;                        /* Keeps badge circular even if text wraps */
   transition: all 0.15s ease;
 }
 
@@ -281,13 +301,9 @@ body {
   color: var(--badge-text);
 }
 
-/* Stacks sequentially into 1 column on narrow screens */
-@media (max-width: 500px) {
-  .quick-chips {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-    grid-auto-flow: row;
-  }
+.chip:hover::before {
+  background-color: #ffffff;
+  color: var(--primary);
 }
 
 /* ==========================================================================
@@ -301,9 +317,11 @@ body {
   max-width: 680px;
   width: 90vw;
   max-height: 85vh;
+  max-height: 85dvh;                     /* Dynamic viewport for mobile browser chrome */
   background: #ffffff;
   color: #1f2937;
   overflow: hidden;
+  margin: auto;
 }
 
 .modal-dialog[open] {
@@ -323,7 +341,7 @@ body {
   padding: 1.25rem 1.5rem;
   border-bottom: 1px solid #e5e7eb;
   background-color: #f9fafb;
-  flex-shrink: 0;            /* Fix: Keeps header from compressing */
+  flex-shrink: 0;                        /* Keeps header from compressing */
 }
 
 .modal-header h2 {
@@ -351,8 +369,8 @@ body {
 
 .modal-body {
   padding: 1.5rem;
-  overflow-y: auto;          /* Fix: Enables clean scrolling */
-  flex: 1;                   /* Fix: Takes remaining height */
+  overflow-y: auto;                      /* Enables clean scrolling */
+  flex: 1;                               /* Takes remaining height */
   font-size: 0.9375rem;
   line-height: 1.6;
 }
@@ -448,4 +466,37 @@ body {
   color: #6b7280;
   font-style: italic;
   margin: 0;
+}
+
+/* ==========================================================================
+   Mobile Responsiveness (Phones & Narrow Viewports)
+   ========================================================================== */
+@media (max-width: 540px) {
+  /* Chips stack cleanly into 1 column on phones */
+  .quick-chips {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
+
+  /* Modal Mobile Fix: Prevents clipping at top of phone screen */
+  .modal-dialog {
+    width: 94vw;
+    max-height: 86dvh;
+    /* Safely offsets below notch/status bar, centers horizontally */
+    margin: max(1.25rem, env(safe-area-inset-top, 1.25rem)) auto auto auto;
+    border-radius: 10px;
+  }
+
+  .modal-header {
+    padding: 1rem 1.15rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .modal-body {
+    padding: 1.15rem;
+  }
 }
